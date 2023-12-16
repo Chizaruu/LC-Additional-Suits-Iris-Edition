@@ -26,7 +26,18 @@ namespace IrisChansAdditionalSuits
     [BepInPlugin(modGUID, modName, modVersion)]
     public class AdditionalSuitsBase : BaseUnityPlugin
     {
-        private static AdditionalSuitsBase Instance;
+        private static AdditionalSuitsBase _instance;
+        public static AdditionalSuitsBase Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<AdditionalSuitsBase>() ?? new GameObject(nameof(AdditionalSuitsBase)).AddComponent<AdditionalSuitsBase>();
+                }
+                return _instance;
+            }
+        }
 
         private const string modGUID = "TSK.IrisChansAdditionalSuits";
         private const string modName = "IrisChan's AdditionalSuits";
@@ -37,10 +48,17 @@ namespace IrisChansAdditionalSuits
         public static bool SuitsLoaded;
         public static string ModResourceFolder;
         public static UnlockableSuitDefListing SuitDefManifest;
+        private static readonly Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
         void Awake()
         {
-            if (Instance == null) { Instance = this; }
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            _instance = this;
+
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
             mls.LogInfo($"{modName} - initializing...");
 
@@ -105,7 +123,14 @@ namespace IrisChansAdditionalSuits
                 foreach (var unlockableSuitDef in SuitDefManifest.unlockableSuits)
                 {
                     var newUnlockableItem = JsonUtility.FromJson<UnlockableItem>(JsonUtility.ToJson(suitPrefab));
-                    var suitTexture = LoadTexture(Path.Combine(ModResourceFolder, unlockableSuitDef.suitTexture));
+
+                    var texturePath = Path.Combine(ModResourceFolder, unlockableSuitDef.suitTexture);
+                    if (!textureCache.TryGetValue(texturePath, out var suitTexture))
+                    {
+                        suitTexture = LoadTexture(texturePath);
+                        textureCache[texturePath] = suitTexture;
+                    }
+
                     var suitMaterial = new Material(newUnlockableItem.suitMaterial) { mainTexture = suitTexture };
 
                     newUnlockableItem.suitMaterial = suitMaterial;
