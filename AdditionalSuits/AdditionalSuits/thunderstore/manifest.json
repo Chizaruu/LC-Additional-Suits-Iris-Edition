@@ -1,0 +1,7 @@
+{
+    "name": "Iris Chan's Additional Suits",
+    "version_number": "1.1.1",
+    "website_url": "https://github.com/Chizaruu/LC-Additional-Suits-Iris-Edition",
+    "description": "(Custom) Adds 8 more standard suits to your initial closet at the start of the game! Great for organizing larger crews!",
+    "dependencies": ["BepInEx-BepInExPack-5.4.2100"]
+}

@@ -1,0 +1,11 @@
+- v1.1.1
+ - Forked development for Iris chan to add more suits or whatever
+ - Optimized code
+- v1.1.0
+	- Rewrote system to load suits based on JSON defs (prep for adding suits to the terminal shop)
+- v1.0.2
+	- Added black suit
+- v1.0.1
+	- Minor code update
+- v1.0.0
+	- Release
