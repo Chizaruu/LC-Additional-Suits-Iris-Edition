@@ -7,8 +7,8 @@
     <ProjectGuid>{0C25B026-8574-4DD2-9AF2-4265F618EF8A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdditionalSuits</RootNamespace>
-    <AssemblyName>AdditionalSuits</AssemblyName>
+    <RootNamespace>IrisChansAdditionalSuits</RootNamespace>
+    <AssemblyName>IrisChansAdditionalSuits</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
